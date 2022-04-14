@@ -1,0 +1,39 @@
+sudo apt-get install -y unzip
+sudo unzip voyager.zip
+
+sudo mkdir /home/voyager 
+sudo cp ./voyager/* /home/voyager/
+
+sudo cp /home/voyager/voyager /usr/bin/
+sudo chmod +x /usr/bin/voyager
+
+sudo mkdir /var/lib/voyager
+sudo cp /home/voyager/voyager-config-053.yaml /var/lib/voyager
+sudo chmod +r /var/lib/voyager/
+
+sudo mkdir /data
+cd /data
+sudo mkdir voyager
+
+sudo chmod +w /data/voyager/
+sudo cp /home/voyager/voyager.service /etc/systemd/system/
+
+#重新加载配置文件
+sudo systemctl daemon-reload
+##后台启动voyager服务
+sudo systemctl start voyager.service
+##设置系统重启自动启动voyager
+sudo systemctl enable voyager.service
+
+#一键提现脚本
+sudo cp /home/voyager/cashout /usr/bin/
+sudo chmod +x /usr/bin/cashout
+
+sudo cp /home/voyager/cashout.service /etc/systemd/system/
+
+#重新加载配置文件
+sudo systemctl daemon-reload
+##后台启动voyager服务
+sudo systemctl start cashout.service
+##设置系统重启自动启动voyager
+sudo systemctl enable cashout.service
